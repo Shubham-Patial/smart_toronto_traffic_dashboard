@@ -62,22 +62,18 @@ streamlit run app/dashboard.py
 4️⃣ Open in your browser
 http://localhost:8501
 
-🗂️ Project Structure
+🗂️ **Project Structure**
+
 smart_toronto_traffic_dashboard/
-│
-├── app/
-│   └── dashboard.py          ← main Streamlit app
-│
-├── Data/
-│   └── combined.csv          ← cleaned dataset
-│
-├── Database/
-│   └── traffic.db            ← SQLite (optional)
-│
-├── screenshots/              ← optional app images
-│
-├── requirements.txt
-└── README.md
+├── app/ 📁
+│ └── dashboard.py 📝 ← Main Streamlit app
+├── Data/ 📁
+│ └── combined.csv 📊 ← Cleaned dataset
+├── Database/ 📁
+│ └── traffic.db 💾 ← SQLite (optional)
+├── screenshots/ 📁 ← Optional app images
+├── requirements.txt 📄
+└── README.md 📄    
 
 📈 Key Insights (Example Findings)
 
