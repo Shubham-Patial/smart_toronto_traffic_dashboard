@@ -1,4 +1,5 @@
 import streamlit as st
+import os
 import pandas as pd
 import plotly.express as px
 from datetime import datetime
@@ -24,8 +25,7 @@ You can filter by **day of week, weather condition, vehicle type**,
 and **neighbourhood** to uncover meaningful trends and insights.
 """)
 # --- File path ---
-DATA_PATH = "C:/Users/shubh/Desktop/smart_toronto_traffic_dashboard/Data/combined.csv"
-
+DATA_PATH = os.path.join("Data", "combined.csv")
 # --- Load data ---
 @st.cache_data
 def load_data():
