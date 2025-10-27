@@ -82,8 +82,7 @@ smart_toronto_traffic_dashboard/
 ├── Data/                    📁
 │   └── combined.csv         📊  ← Cleaned dataset
 ├── Database/                📁
-│   └── traffic.db           💾  ← SQLite (optional)
-├── screenshots/             📁  ← Optional app images
+│   └── traffic.db           💾  ← SQLite (optional)           
 ├── requirements.txt         📄
 └── README.md                📄
 ```
