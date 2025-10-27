@@ -25,7 +25,7 @@ You can filter by **day of week, weather condition, vehicle type**,
 and **neighbourhood** to uncover meaningful trends and insights.
 """)
 # --- File path ---
-DATA_PATH = os.path.join("Data", "combined.csv")
+DATA_PATH = os.path.join(os.path.dirname(__file__), "../Data/combined.csv")
 # --- Load data ---
 @st.cache_data
 def load_data():
