@@ -24,12 +24,24 @@ exploring how **weather, time, and location** impact road safety.
 You can filter by **day of week, weather condition, vehicle type**, 
 and **neighbourhood** to uncover meaningful trends and insights.
 """)
-# --- File path ---
-DATA_PATH = os.path.join(os.path.dirname(__file__), "../Data/combined.csv")
-# --- Load data ---
+
+# ---------------------------
+# LOAD DATA
+# ---------------------------
+LOCAL_PATH = os.path.join(os.path.dirname(__file__), "../Data/combined.csv")
+# Replace with your real GitHub username and repo name:
+GITHUB_URL = "https://raw.githubusercontent.com/Shubham-Patial/smart_toronto_traffic_dashboard/main/Data/combined.csv"
+
 @st.cache_data
 def load_data():
-    df = pd.read_csv(DATA_PATH)
+    try:
+        if os.path.exists(LOCAL_PATH):
+            df = pd.read_csv(LOCAL_PATH)
+        else:
+            df = pd.read_csv(GITHUB_URL)
+    except Exception as e:
+        st.error(f"❌ Could not load data. Please check that 'combined.csv' exists in the Data folder or GitHub URL.\n\nError: {e}")
+        st.stop()
 
     # --- Fix datetime ---
     if "datetime" in df.columns:
@@ -68,7 +80,9 @@ def load_data():
 # --- Load ---
 data = load_data()
 
-# --- Sidebar Filters ---
+# ---------------------------
+# SIDEBAR FILTERS
+# ---------------------------
 st.sidebar.header("🔍 Filters")
 
 # Date range filter
@@ -89,7 +103,9 @@ selected_weather = st.sidebar.multiselect("Select Weather Condition(s)", weather
 selected_vehicle = st.sidebar.multiselect("Select Vehicle Category", vehicle_options)
 selected_hood = st.sidebar.multiselect("Select Neighbourhood(s)", hood_options)
 
-# --- Filtering logic ---
+# ---------------------------
+# FILTERING LOGIC
+# ---------------------------
 filtered = data.copy()
 
 if len(date_range) == 2 and "datetime" in filtered.columns:
@@ -101,27 +117,23 @@ if len(date_range) == 2 and "datetime" in filtered.columns:
 
 if selected_days:
     filtered = filtered[filtered["day_of_week"].isin(selected_days)]
-
 if selected_weather:
     filtered = filtered[filtered["weather_condition"].isin(selected_weather)]
-
 if selected_vehicle:
     filtered = filtered[filtered["vehicle_category"].isin(selected_vehicle)]
-
 if selected_hood:
     filtered = filtered[filtered["NEIGHBOURHOOD_140"].isin(selected_hood)]
 
-# --- Dashboard Header ---
-st.title("🚦 Smart Toronto Traffic Dashboard")
-
-# --- Check filtered data ---
+# ---------------------------
+# MAIN DASHBOARD
+# ---------------------------
 if filtered.empty:
     st.warning("⚠️ No records match your selected filters. Try clearing one or more filters.")
     st.stop()
 else:
     st.success(f"✅ Showing {len(filtered)} records after filtering.")
 
-# --- KPIs ---
+# KPIs
 total_records = len(filtered)
 unique_neighbourhoods = filtered["NEIGHBOURHOOD_140"].nunique() if "NEIGHBOURHOOD_140" in filtered.columns else 0
 peak_hour = int(filtered["hour"].mode()[0]) if not filtered.empty and "hour" in filtered.columns else "N/A"
@@ -131,42 +143,35 @@ col1.metric("Total Records", total_records)
 col2.metric("Peak Hour", peak_hour)
 col3.metric("Unique Neighbourhoods", unique_neighbourhoods)
 
-# --- Charts ---
-
-# 1️⃣ Crashes by Hour
+# Charts
 if "hour" in filtered.columns:
     hourly = filtered.groupby("hour").size().reset_index(name="count")
     fig1 = px.line(hourly, x="hour", y="count", title="Crashes by Hour of Day")
     st.plotly_chart(fig1, use_container_width=True)
 
-# 2️⃣ Injury Severity Distribution
 if "injury_severity" in filtered.columns:
     injury_counts = filtered["injury_severity"].value_counts().reset_index()
     injury_counts.columns = ["Injury Severity", "Count"]
     fig2 = px.bar(injury_counts, x="Injury Severity", y="Count", title="Injury Severity Distribution")
     st.plotly_chart(fig2, use_container_width=True)
 
-# 3️⃣ Crashes by Weather
 if "weather_condition" in filtered.columns:
     weather_counts = filtered["weather_condition"].value_counts().reset_index()
     weather_counts.columns = ["Weather Condition", "Count"]
     fig3 = px.bar(weather_counts, x="Weather Condition", y="Count", title="Crashes by Weather Condition")
     st.plotly_chart(fig3, use_container_width=True)
 
-# 4️⃣ Top Neighbourhoods
 if "NEIGHBOURHOOD_140" in filtered.columns:
     top_hoods = filtered["NEIGHBOURHOOD_140"].value_counts().reset_index().head(15)
     top_hoods.columns = ["Neighbourhood", "Count"]
     fig4 = px.bar(top_hoods, x="Neighbourhood", y="Count", title="Top 15 Neighbourhoods by Collisions")
     st.plotly_chart(fig4, use_container_width=True)
 
-# 5️⃣ Temperature vs Crashes
 if "temperature" in filtered.columns:
     temp_group = filtered.groupby("temperature").size().reset_index(name="count")
     fig5 = px.line(temp_group, x="temperature", y="count", title="Temperature vs Collision Count")
     st.plotly_chart(fig5, use_container_width=True)
 
-# 6️⃣ Accident Map (optional)
 if {"latitude", "longitude"}.issubset(filtered.columns):
     map_df = filtered.dropna(subset=["latitude", "longitude"])
     if not map_df.empty:
@@ -183,9 +188,10 @@ if {"latitude", "longitude"}.issubset(filtered.columns):
         fig6.update_layout(mapbox_style="open-street-map", margin=dict(l=0, r=0, t=40, b=0))
         st.plotly_chart(fig6, use_container_width=True)
 
-# --- Insights ---
+# ---------------------------
+# INSIGHTS
+# ---------------------------
 st.markdown("### 💡 Key Insights")
-
 insights = []
 
 if "hour" in filtered.columns:
@@ -205,7 +211,9 @@ else:
     for item in insights:
         st.markdown(item)
 
-# --- Footer ---
+# ---------------------------
+# FOOTER
+# ---------------------------
 st.markdown("---")
 st.caption(f"📅 Last Updated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 st.caption("📘 Data Source: City of Toronto Traffic / Weather Data")
