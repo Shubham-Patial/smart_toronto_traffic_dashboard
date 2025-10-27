@@ -24,7 +24,7 @@ The dashboard provides a **data-driven understanding of urban traffic safety**, 
 ## 🗃️ Data Sources
 
 1. **City of Toronto Open Data Portal** — [Collision Data](https://open.toronto.ca/dataset/collision-data/)  
-2. **Environment Canada** — https://openweathermap.org/  
+2. **Environment Canada / OpenWeatherMap** — [Weather Data](https://openweathermap.org/)
 
 All data were cleaned and combined into `combined.csv` using preprocessing scripts, then optionally stored in an SQLite database (`traffic.db`) for efficient querying.
 
@@ -46,43 +46,63 @@ All data were cleaned and combined into `combined.csv` using preprocessing scrip
 
 ### 🪟 Local Setup
 
-1️⃣ Clone or download the project
+1️⃣ Clone or download the project:
+
+```bash
 git clone https://github.com/Shubham-Patial/smart_toronto_traffic_dashboard.git
 cd smart_toronto_traffic_dashboard
+```
 
-2️⃣ Install dependencies
+2️⃣ Install dependencies:
 
-Create a virtual environment (optional) and install:
-
+```bash
 pip install -r requirements.txt
+```
 
-3️⃣ Run Streamlit
+3️⃣ Run Streamlit:
+
+```bash
 streamlit run app/dashboard.py
+```
 
-4️⃣ Open in your browser
+4️⃣ Open in your browser:
+
+```
 http://localhost:8501
+```
 
-🗂️ **Project Structure**
+---
 
+## 🗂️ Project Structure
+
+```
 smart_toronto_traffic_dashboard/
-├── app/ 📁
-│ └── dashboard.py 📝 ← Main Streamlit app
-├── Data/ 📁
-│ └── combined.csv 📊 ← Cleaned dataset
-├── Database/ 📁
-│ └── traffic.db 💾 ← SQLite (optional)
-├── screenshots/ 📁 ← Optional app images
-├── requirements.txt 📄
-└── README.md 📄    
+├── app/                     📁
+│   └── dashboard.py         📝  ← Main Streamlit app
+├── Data/                    📁
+│   └── combined.csv         📊  ← Cleaned dataset
+├── Database/                📁
+│   └── traffic.db           💾  ← SQLite (optional)
+├── screenshots/             📁  ← Optional app images
+├── requirements.txt         📄
+└── README.md                📄
+```
 
-📈 Key Insights (Example Findings)
+---
 
-🚗 Peak collisions occur between 8 AM and 6 PM (typical rush hours).
+## 📈 Key Insights (Example Findings)
 
-🌧️ Rain and snow conditions increase accident rates by ~25–30 %.
+- 🚗 Peak collisions occur between 8 AM and 6 PM (typical rush hours).  
+- 🌧️ Rain and snow conditions increase accident rates by ~25–30 %.  
+- 🏙️ Downtown neighbourhoods have the highest collision density.  
+- 🌡️ Extreme temperatures (below 0 °C or above 30 °C) correlate with higher injury severity.  
 
-🏙️ Downtown neighbourhoods have the highest collision density.
+> Actual insights depend on filter selection and latest data.
 
-🌡️ Extreme temperatures (below 0 °C or above 30 °C) correlate with higher injury severity.
+---
 
-Actual insights depend on filter selection and latest data.
+## 🚀 Deployment (Optional)
+
+- **Streamlit Cloud:** Push your repo to GitHub → [Streamlit Cloud](https://share.streamlit.io) → Deploy.  
+- **Flask + SQL backend:** Use Render or Railway for deployment if you use SQLite or another database.
+
