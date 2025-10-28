@@ -1,6 +1,6 @@
 # 🚦 Smart Toronto Traffic Dashboard
 
-**Author:** Shubham [Your Last Name]  
+**Author:** Shubham Patial
 **Last Updated:** October 2025  
 
 An interactive Streamlit dashboard analyzing Toronto’s traffic collision data — uncovering how **weather, time, and location** influence road safety and congestion.
