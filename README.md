@@ -65,12 +65,16 @@ pip install -r requirements.txt
 streamlit run app/dashboard.py
 ```
 
-4️⃣ Open in your browser:
+4️⃣ Open in your browser locally:
 
 ```
 http://localhost:8501
 ```
+5️⃣ Open in browser:
 
+```
+https://shubham-patial-smart-toronto-traffic-dashbo-appdashboard-61fxrf.streamlit.app/
+```
 ---
 
 ## 🗂️ Project Structure
