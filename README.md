@@ -1,9 +1,9 @@
-# 🚦 Smart Toronto Traffic Dashboard
+# 🚦 Smart Toronto Collision Data Dashboard
 
 **Author:** Shubham Patial
 **Last Updated:** October 2025  
 
-An interactive Streamlit dashboard analyzing Toronto’s traffic collision data — uncovering how **weather, time, and location** influence road safety and congestion.
+An interactive Streamlit dashboard analyzing Toronto’s collision data — uncovering how **weather, time, and location** influence road safety and congestion.
 
 ---
 
@@ -49,8 +49,8 @@ All data were cleaned and combined into `combined.csv` using preprocessing scrip
 1️⃣ Clone or download the project:
 
 ```bash
-git clone https://github.com/Shubham-Patial/smart_toronto_traffic_dashboard.git
-cd smart_toronto_traffic_dashboard
+git clone https://github.com/Shubham-Patial/smart_toronto_collision_data_dashboard.git
+cd smart_toronto_collision_data_dashboard
 ```
 
 2️⃣ Install dependencies:
@@ -73,14 +73,14 @@ http://localhost:8501
 5️⃣ Open in browser:
 
 ```
-https://shubham-patial-smart-toronto-traffic-dashbo-appdashboard-61fxrf.streamlit.app/
+https://shubham-patial-smart-toronto-collision-data-dashbo-appdashboard-61fxrf.streamlit.app/
 ```
 ---
 
 ## 🗂️ Project Structure
 
 ```
-smart_toronto_traffic_dashboard/
+smart_toronto_collision_data_dashboard/
 ├── app/                     📁
 │   └── dashboard.py         📝  ← Main Streamlit app
 ├── Data/                    📁
